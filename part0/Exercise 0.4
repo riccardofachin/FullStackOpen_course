@@ -2,13 +2,14 @@ note over browser:
 user writes new note in browser and presses submit
 end note
 
-browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/notes
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+server-->browser: save note
 browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
-server-->browser: html
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
-server-->browser: html
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
-server-->browser: css
+server-->browser: get html
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: get main js
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: json with note data
 
 note over browser:
 show new note at the end
