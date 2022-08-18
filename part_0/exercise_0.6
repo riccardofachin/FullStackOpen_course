@@ -1,0 +1,12 @@
+Sequence diagram of Single Page App version:
+
+note over browser:
+user writes new note in browser and presses submit
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: save note in a single HTTP call
+
+note over browser:
+show new note at the end
+end note
