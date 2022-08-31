@@ -1,0 +1,99 @@
+import { useState } from 'react';
+import React from 'react';
+import './style.css';
+
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const getTotal = () => {
+    return good + neutral + bad;
+  };
+
+  const getAverage = () => {
+    if (getTotal() === 0) {
+      return 0;
+    }
+    return (good * 1 + neutral * 0 + bad * -1) / getTotal();
+  };
+
+  const getPositive = () => {
+    if (getTotal() === 0) {
+      return 0;
+    }
+    return good / getTotal();
+  };
+
+  return (
+    <div>
+      <h1>give feedback</h1>
+      <Button handler={() => setGood(good + 1)} label="good" />
+      <Button handler={() => setNeutral(neutral + 1)} label="neutral" />
+      <Button handler={() => setBad(bad + 1)} label="bad" />
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        getTotal={getTotal()}
+        getAverage={getAverage()}
+        getPositive={getPositive()}
+      />
+    </div>
+  );
+};
+
+const Button = ({ handler, label }) => {
+  return (
+    <>
+      <button onClick={handler}>{label}</button>
+    </>
+  );
+};
+
+const StatisticLine = ({ label, value }) => {
+  return (
+    <>
+      <tr>
+        <td>{label}</td>
+        <td>{value}</td>
+      </tr>
+    </>
+  );
+};
+
+const Statistics = ({
+  good,
+  neutral,
+  bad,
+  getTotal,
+  getAverage,
+  getPositive,
+}) => {
+  if (getTotal === 0) {
+    return (
+      <>
+        <h1>statistics</h1>
+        <p>No feedback given</p>
+      </>
+    );
+  }
+  return (
+    <>
+      <h1>statistics</h1>
+      <table>
+        <tbody>
+          <StatisticLine label="good" value={good} />
+          <StatisticLine label="neutral" value={neutral} />
+          <StatisticLine label="bad" value={bad} />
+          <StatisticLine label="all" value={getTotal} />
+          <StatisticLine label="average" value={getAverage} />
+          <StatisticLine label="positive" value={getPositive} />
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+export default App;
